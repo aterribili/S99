@@ -13,6 +13,7 @@ object exercicios extends App {
   println(pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
   println(encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
   println(encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+  println(decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e))))
 
   def last(list: List[Int]): Int =
     if (list.tail == Nil) list.head
@@ -59,10 +60,17 @@ object exercicios extends App {
   }
 
   def encode[T](list: List[T]): List[(Int, T)] =
-    pack(list).map { element => (element.length, element.head) }
+    pack(list) map { element => (element.length, element.head) }
 
   def encodeModified[T](list: List[T]): List[Any] = {
     encode(list) map { case (numero, elemento) => if (numero == 1) elemento else (numero, elemento) }
+  }
+
+  def decode[T](list: List[(Int, T)]): List[T] = list.flatMap {
+    tuple =>
+      tuple match {
+        case (numero, elemento) => (1 to numero).map(_ => elemento)
+      }
   }
 
 }

@@ -72,6 +72,5 @@ object exercicios extends App {
         case (numero, elemento) => (1 to numero).map(_ => elemento)
       }
   }
-
 }
 
